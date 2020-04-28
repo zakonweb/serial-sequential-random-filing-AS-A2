@@ -1,0 +1,47 @@
+//INPUT/READ to SEARCH from a text file
+
+DECLARE GRNO : INTEGER
+DECLARE sNAME : STRING
+DECLARE sClass : STRING
+DECLARE sFee : CURRENCY
+DECLARE isFeePaid : BOOLEAN
+DECLARE Value : INTEGER
+DECLARE isFound : BOOLEAN
+
+GRNO = 0
+sName = ""
+sClass = ""
+sFee = ""
+isFeePaid = FALSE
+Value = 0
+isFound = FALSE
+
+OUTPUT "Kia search kerna hey bhai?"
+INPUT Value 
+
+OPENFILE "ABC.txt" FOR READ
+WHILE NOT EOF("ABC.txt")
+    READFILE "ABC.txt", GRNO
+    READFILE "ABC.txt", sName
+    READFILE "ABC.txt", sClass
+    READFILE "ABC.txt", sFee
+    READFILE "ABC.txt", isFeePaid
+
+    IF GRNO = Value
+      THEN
+        isFound = TRUE
+        OUTPUT "GRNO: ", GRNO
+        OUTPUT "Student name: ", sName
+        OUTPUT "Class: ", sClass
+        OUTPUT "Fee amount: ", sFee
+        OUTPUT "Is fee paid: ", isFeePaid
+    
+        EXIT LOOP
+    END IF
+ENDWHILE
+CLOSEFILE "ABC.txt"
+
+IF isFound = FALSE
+  THEN
+    OUTPUT Value, "Could not be found in the file bhai."
+ENDIF

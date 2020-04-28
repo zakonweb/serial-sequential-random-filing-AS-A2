@@ -1,0 +1,50 @@
+//EDITING
+DECLARE rollNo : INTEGER
+DECLARE sName : STRING
+DECLARE sConatct : STRING
+DECLARE sFee : CURRENCY
+DECLARE isFeePaid : BOOLEAN
+DECLARE isFound : BOOLEAN
+DECLARE searchRollNo : INTEGER
+isFound = FALSE
+
+INPUT "Enter roll# to edit:", searchRollNo  
+
+OPENFILE "sRec.txt" FOR INPUT
+OPENFILE "temp.txt" FOR OUTPUT
+
+WHILE NOT EOF("sRec.txt") 
+  READFILE "sRec.txt", rollNo
+  READFILE "sRec.txt", sName
+  READFILE "sRec.txt", sContact
+  READFILE "sRec.txt", sFee
+  READFILE "sRec.txt", isFeePaid
+
+  IF rollNo <> searchRollNo 
+    THEN
+      WRITEFILE "temp.txt", rollNo
+      WRITEFILE "temp.txt", sName
+      WRITEFILE "temp.txt", sContact
+      WRITEFILE "temp.txt", sFee
+      WRITEFILE "temp.txt", isFeePaid
+  ELSEIF rollNo = searchRollNo
+    THEN
+      isFound = TRUE
+      INPUT "Enter student name: ", sName
+      INPUT "Enter student contact: ", sContact
+      INPUT "Enter fee amount: ", sFee
+      INPUT "Is fee paid? ", isFeePaid
+
+      WRITEFILE "temp.txt", searchRollNo 
+      WRITEFILE "temp.txt", sName
+      WRITEFILE "temp.txt", sContact
+      WRITEFILE "temp.txt", sFee
+      WRITEFILE "temp.txt", isFeePaid
+  ENDIF
+ENDWHILE
+CLOSEFILE "sRec.txt"
+CLOSEFILE "temp.txt"
+DELETEFILE "sRec.txt"
+RENAMEFILE "temp.txt", "sRec.txt"
+
+IF isFound = TRUE THEN OUTPUT "Record edited..."
