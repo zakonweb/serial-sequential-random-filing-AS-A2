@@ -1,0 +1,58 @@
+//RANDOM FILING
+//DELETE A RECORD
+//FILE IS ORDERED
+
+//UDT
+TYPE sRecType
+  DECLARE rollNo : INTEGER
+  DECLARE sName : STRING*25
+  DECLARE sConatct : STRING*16
+  DECLARE sFee : CURRENCY
+  DECLARE isFeePaid : BOOLEAN
+END TYPE
+
+//DECLARATION
+DECLARE myRec : sRecType
+DECLARE totalRecs, i, tempRecords : INTEGER
+DECLARE isFound : BOOLEAN   //FLAG
+
+//INITIALISE
+isFound ← FALSE
+
+//OPEN FILE 
+OPENFILE "sRec" FOR RANDOM
+OPENFILE "temp" FOR RANDOM
+
+//COUNT TOTAL RECs IN FILE sRec
+totalRecs = LOF("sRec") / LEN(myRec)
+
+//INPUT "Enter Roll Number To DELETE: ", RN
+
+IF RN <= totalRecs
+  THEN
+    isFound = TRUE
+
+    FOR i ← 1 TO totalRecs 
+      SEEK "sRec", i
+      GETRECORD "sRec", myRec
+
+      IF myRec.rollNo <> RN
+        THEN
+          tempRecords = tempRecords +1
+          SEEK  "temp", tempRecords 
+          PUTRECORD "temp", myRec
+      END IF
+    NEXT i
+END IF
+
+//CLOSE FILE
+CLOSEFILE "sRec" 
+CLOSEFILE "temp" 
+
+IF isFound = FALSE 
+  THEN 
+    OUTPUT "Record not found..."
+  ELSE
+    DELETEFILE "sRec"
+    RENAME "temp", "sRec"
+END IF

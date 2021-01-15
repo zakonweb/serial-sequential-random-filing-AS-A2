@@ -1,0 +1,44 @@
+//RANDOM FILING
+//ADD MULTIPLE RECORDS AT THE END OF FILE (APPEND)
+
+//UDT
+TYPE sRecType
+  DECLARE rollNo : INTEGER
+  DECLARE sName : STRING*25
+  DECLARE sConatct : STRING*16
+  DECLARE sFee : CURRENCY
+  DECLARE isFeePaid : BOOLEAN
+END TYPE
+
+//DECLARATION
+DECLARE myRec : sRecType
+DECLARE totalRecs : INTEGER
+DECLARE more : CHRACTER
+
+//INITIALISE
+more ← "Y"
+
+//OPEN FILE 
+OPENFILE "sRec" FOR RANDOM
+
+//COUNT TOTAL RECs IN FILE
+totalRecs = LOF("sRec") / LEN(myRec)
+
+WHILE more = "Y" or more = "y"
+  //INPUT DATA
+  INPUT "Roll number: ", myRec.rollNo
+  INPUT "Student name: ", myRec.sName
+  INPUT "Student contact: ", myRec.sContact
+  INPUT "Fee amount: ", myRec.sFee
+  INPUT "Is fee paid? ", myRec.isFeePaid
+
+  //GOTO NEXT REC POSITION AND SAVE REC
+  SEEK "sRec", totalRecs +1
+  PUTRECORD "sRec", myRec
+  totalRecs ← totalRecs +1
+
+  INPUT "Want to add another record? (Y/N): ", more
+END WHILE
+
+//CLOSE FILE
+CLOSEFILE "sRec"  

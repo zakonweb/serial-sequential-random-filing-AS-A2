@@ -1,0 +1,49 @@
+//RANDOM FILING
+//SERACHING A RECORD
+//FILE IS ORDERED
+
+//UDT
+TYPE sRecType
+  DECLARE rollNo : INTEGER
+  DECLARE sName : STRING*25
+  DECLARE sConatct : STRING*16
+  DECLARE sFee : CURRENCY
+  DECLARE isFeePaid : BOOLEAN
+END TYPE
+
+//DECLARATION
+DECLARE myRec : sRecType
+DECLARE RN, totalRecs : INTEGER
+DECLARE isFound : BOOLEAN
+
+//INITIALISE
+isFound ← FALSE
+
+//OPEN FILE 
+OPENFILE "sRec" FOR RANDOM
+
+//COUNT TOTAL RECs IN FILE
+totalRecs = LOF("sRec") / LEN(myRec)
+
+//INPUT "Enter Roll Number To Search For: ", RN
+
+IF RN <= totalRecs
+  THEN
+    isFound ← TRUE
+
+    //GOTO REC POSITION AND READ REC
+    SEEK "sRec", RN
+    GETRECORD "sRec", myRec
+
+    //OUTPUT DATA
+    OUTPUT "Roll number: ", myRec.rollNo
+    OUTPUT "Student name: ", myRec.sName
+    OUTPUT "Student contact: ", myRec.sContact
+    OUTPUT "Fee amount: ", myRec.sFee
+    OUTPUT "Is fee paid? ", myRec.isFeePaid
+END IF
+
+//CLOSE FILE
+CLOSEFILE "sRec"  
+
+IF isFound = FALSE THEN OUTPUT "Record not found..."

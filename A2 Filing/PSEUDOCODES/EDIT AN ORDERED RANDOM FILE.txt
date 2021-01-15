@@ -1,0 +1,49 @@
+//RANDOM FILING
+//EDIT A RECORD
+//FILE IS ORDERED
+
+//UDT
+TYPE sRecType
+  DECLARE rollNo : INTEGER
+  DECLARE sName : STRING*25
+  DECLARE sConatct : STRING*16
+  DECLARE sFee : CURRENCY
+  DECLARE isFeePaid : BOOLEAN
+END TYPE
+
+//DECLARATION
+DECLARE myRec : sRecType
+DECLARE totalRecs : INTEGER
+DECLARE isFound : BOOLEAN
+
+//INITIALISE
+isFound ← FALSE
+
+//OPEN FILE 
+OPENFILE "sRec" FOR RANDOM
+
+//COUNT TOTAL RECs IN FILE
+totalRecs = LOF("sRec") / LEN(myRec)
+
+//INPUT "Enter Roll Number To EDIT: ", RN
+
+IF RN <= totalRecs
+  THEN
+    isFound = TRUE
+
+    //INPUT FOR EDITING
+    myRec.rollNo ← RN
+    INTPUT "Student name: ", myRec.sName
+    INTPUT "Student contact: ", myRec.sContact
+    INTPUT "Fee amount: ", myRec.sFee
+    INTPUT "Is fee paid? ", myRec.isFeePaid
+
+    //GOTO REQUIRED REC POSITION AND EDIT REC IN FILE
+    SEEK "sRec", RN
+    PUTRECORD "sRec", myRec
+END IF
+
+//CLOSE FILE
+CLOSEFILE "sRec"  
+
+IF isFound = FALSE THEN OUTPUT "Record not found..."
