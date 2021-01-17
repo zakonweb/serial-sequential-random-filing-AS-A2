@@ -25,7 +25,7 @@ OPENFILE "sRec" FOR RANDOM
 //COUNT TOTAL RECs IN FILE
 totalRecs = LOF("sRec") / LEN(myRec)
 
-//INPUT "Enter Roll Number To Search For: ", RN
+INPUT "Enter Roll Number To Search For: ", RN
 
 FOR i ← 1 TO totalRecs 
   //GOTO NEXT REC POSITION AND READ REC
