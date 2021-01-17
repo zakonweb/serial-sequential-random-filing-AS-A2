@@ -25,7 +25,7 @@ OPENFILE "sRec" FOR RANDOM
 //COUNT TOTAL RECs IN FILE
 totalRecs = LOF("sRec") / LEN(myRec)
 
-//INPUT "Enter Roll Number To EDIT: ", RN
+INPUT "Enter Roll Number To EDIT: ", RN
 
 IF RN <= totalRecs
   THEN
