@@ -26,7 +26,7 @@ OPENFILE "temp" FOR RANDOM
 //COUNT TOTAL RECs IN FILE sRec
 totalRecs = LOF("sRec") / LEN(myRec)
 
-//INPUT "Enter Roll Number To DELETE: ", RN
+INPUT "Enter Roll Number To DELETE: ", RN
 
 IF RN <= totalRecs
   THEN
