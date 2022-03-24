@@ -16,7 +16,7 @@ DECLARE totalRecs : INTEGER
 DECLARE more : CHRACTER
 
 //INITIALISE
-more ← "Y"
+more ← 'Y'
 
 //OPEN FILE 
 OPENFILE "sRec" FOR RANDOM
@@ -24,7 +24,7 @@ OPENFILE "sRec" FOR RANDOM
 //COUNT TOTAL RECs IN FILE
 totalRecs = LOF("sRec") / LEN(myRec)
 
-WHILE more = "Y" or more = "y"
+WHILE more = 'Y' or more = 'y'
   //INPUT DATA
   INPUT "Roll number: ", myRec.rollNo
   INPUT "Student name: ", myRec.sName
