@@ -1,0 +1,94 @@
+PROCEDURE addRecord
+   DECLARE sNAME, sCLASS : STRING
+   DECLARE sFEE : CURRENCY
+
+   sNAME = ""
+   sCLASS = ""
+   sFEE = 0.0
+
+   OPENFILE "skhnorth.txt" FOR APPEND
+   INPUT "Enter name (leave blank to end.): ", sNAME
+   WHILE sNAME <> ""
+      INPUT "Enter class: ", sClass
+      INPUT "Enter fee: ", sFee
+
+      WRITEFILE "skhnorth.txt", sNAME
+      WRITEFILE "skhnorth.txt", sCLASS
+      WRITEFILE "skhnorth.txt", sFEE
+      INPUT "Enter name (leave blank to end.): ", sNAME
+   END WHILE
+   CLOSEFILE "skhnorth.txt"
+END PROCEDURE
+
+PROCEDURE readRecords()
+   DECLARE sNAME, sCLASS : STRING
+   DECLARE sFEE : CURRENCY
+
+   sNAME = ""
+   sCLASS = ""
+   sFEE = 0.0
+
+   OPENFILE "skhnorth.txt" FOR READ
+   WHILE NOT EOF("skhnorth.txt")
+      READFILE "skhnorth.txt", sNAME
+      READEFILE "skhnorth.txt", sCLASS
+      READFILE "skhnorth.txt", sFEE
+
+      OUTPUT "Student name: ", sNAME
+      OUTPUT "Student class: ", sCLASS
+      OUTPUT "Student fee: ", sFEE
+      OUTPUT ""
+   END WHILE
+   CLOSEFILE "skhnorth.txt"
+END PROCEDURE
+
+PROCEDURE searchRecords()
+   DECLARE searchName, sNAME, sCLASS : STRING
+   DECLARE sFEE : CURRENCY
+   DECLARE Found : BOOLEAN
+
+   searchName = ""
+   sNAME = ""
+   sCLASS = ""
+   sFEE = 0.0
+   Found = FALSE
+
+   INPUT "Enter anme to search for: ", searchName
+   OPENFILE "skhnorth.txt" FOR READ
+   WHILE NOT EOF("skhnorth.txt")
+      READFILE "skhnorth.txt", sNAME
+      READEFILE "skhnorth.txt", sCLASS
+      READFILE "skhnorth.txt", sFEE
+
+      IF sNAME = searchName
+        THEN 
+          Found = TRUE
+          OUTPUT "Student name: ", sNAME
+          OUTPUT "Student class: ", sCLASS
+          OUTPUT "Student fee: ", sFEE
+          OUTPUT ""
+      END IF
+   END WHILE
+   CLOSEFILE "skhnorth.txt"
+   IF Found = FALSE THEN OUPUT "Record not found..."
+END PROCEDURE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
