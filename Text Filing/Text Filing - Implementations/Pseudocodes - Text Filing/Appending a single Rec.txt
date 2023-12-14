@@ -1,24 +1,49 @@
-//PSEUDOCODE FOR:
-//ADDING A RECORD TO THE FILE
+// PSEUDOCODE FOR ADDING A STUDENT RECORD TO A FILE
+// This pseudocode describes the process of collecting a student's information,
+// such as roll number, name, contact, fee amount, and fee payment status,
+// and then appending this data to an existing file. This is useful for maintaining
+// student records in a persistent format.
 
-DECLARE rollNo : INTEGER
-DECLARE sName : STRING
-DECLARE sConatct : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
+// Declare variables to store student information
+DECLARE rollNo : INTEGER       // To store the roll number of the student
+DECLARE sName : STRING         // To store the name of the student
+DECLARE sContact : STRING      // To store the contact information of the student
+DECLARE sFee : CURRENCY        // To store the fee amount (using a currency data type)
+DECLARE isFeePaid : BOOLEAN    // To store whether the fee has been paid or not
 
+// Input student details from the user
 INPUT "Enter roll number: ", rollNo
 INPUT "Enter student name: ", sName
 INPUT "Enter student contact: ", sContact
 INPUT "Enter fee amount: ", sFee
-INPUT "Is fee paid? ", isFeePaid
+INPUT "Is fee paid? (true/false) ", isFeePaid
 
+// Open the file named 'sRec.txt' in append mode to add new data at the end of the file
 OPENFILE "sRec.txt" FOR APPEND
 
+// Write the student details to the file 'sRec.txt'
 WRITEFILE "sRec.txt", rollNo
 WRITEFILE "sRec.txt", sName
 WRITEFILE "sRec.txt", sContact
 WRITEFILE "sRec.txt", sFee
 WRITEFILE "sRec.txt", isFeePaid
 
+// Close the file after writing to it
 CLOSEFILE "sRec.txt"
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

@@ -1,22 +1,31 @@
-//APPEND to a text file
+// PSEUDOCODE FOR APPENDING STUDENT RECORDS TO A TEXT FILE
+// This pseudocode is designed to help students understand how to append new student records to a text file. 
+// It involves collecting various details about the student, such as GRNO (General Registration Number), 
+// name, class, fee amount, and fee payment status, and then writing these details to a file named "ABC.txt". 
+// The process repeats until the user decides not to add more records.
 
-DECLARE GRNO : INTEGER
-DECLARE sNAME : STRING
-DECLARE sClass : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
-DECLARE more : BOOLEAN
+// Declare variables to store student information and control the loop
+DECLARE GRNO : INTEGER        // To store the General Registration Number
+DECLARE sNAME : STRING        // To store the student's name
+DECLARE sClass : STRING       // To store the class of the student
+DECLARE sFee : CURRENCY       // To store the fee amount (in a currency format)
+DECLARE isFeePaid : BOOLEAN   // To store whether the fee has been paid or not
+DECLARE more : BOOLEAN        // Flag to control the loop for adding more records
 
-// INITIALISATION
-GRNO = 0
-sName = ""
-sClass = ""
-sFee = ""
-isFeePaid = FALSE
-more = TRUE
+// Initialize the variables
+GRNO = 0                      // Initial GRNO set to 0
+sName = ""                    // Initial name set to an empty string
+sClass = ""                   // Initial class set to an empty string
+sFee = ""                     // Initial fee set to an empty string
+isFeePaid = FALSE             // Initial fee payment status set to false
+more = TRUE                   // Loop control set to true for initial entry
 
+// Open the file 'ABC.txt' in append mode to add new data at the end of the file
 OPENFILE "ABC.txt" FOR APPEND
+
+// Loop to add new records as long as 'more' is true
 WHILE more = TRUE
+    // Input the student details from the user
     OUTPUT "Enter GRNO: "
     INPUT GRNO
 
@@ -32,16 +41,34 @@ WHILE more = TRUE
     OUTPUT "Is fee paid: "
     INPUT isFeePaid
 
+    // Write the student details to the file 'ABC.txt'
     WRITEFILE "ABC.txt", GRNO
     WRITEFILE "ABC.txt", sName
     WRITEFILE "ABC.txt", sClass
     WRITEFILE "ABC.txt", sFee
     WRITEFILE "ABC.txt", isFeePaid
 
+    // Ask the user if they want to add more records
     OUTPUT "Do you want to add more records? (TRUE/FALSE): " 
     INPUT more
 END WHILE 
+
+// Close the file after all records have been written
 CLOSEFILE "ABC.txt"
 
-
-
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

@@ -1,8 +1,11 @@
-//Filing
-//APPEND PSEUDOCODE
-//9618 Syllabus Style
+// PSEUDOCODE FOR APPENDING A RECORD TO A TEXT FILE
+// This section demonstrates appending new student records to "StuRec.txt".
+// It collects Roll Number, Name, Class, and Fee Payment Status from the user
+// and writes this data to the file.
 
-OPENFILE "StuRec.txt" FOR APPEND
+OPENFILE "StuRec.txt" FOR APPEND // Open 'StuRec.txt' in append mode
+
+// Collect and write student details to the file
 Input RollNo
 WRITEFILE "StuRec.txt", RollNo
 
@@ -15,19 +18,19 @@ WRITEFILE "StuRec.txt", Class
 Input IsFeePaid
 WRITEFILE "StuRec.txt", IsFeePaid
 
-CLOSEFILE "StuRec.txt"
-----------------------------------------------------
-//Filing
-//SEARCH PSEUDOCODE
-//9618 Syllabus Style
+CLOSEFILE "StuRec.txt" // Close the file after appending data
 
-Found=False
-Input RN
+// PSEUDOCODE FOR SEARCHING FOR A RECORD IN A TEXT FILE
+// This section describes searching for a specific student record in "StuRec.txt".
+// The user inputs a Roll Number, and the program searches for a matching record.
 
-OPENFILE "StuRec.txt" FOR READ
+Found=False // Initialize a flag to track if the record is found
+Input RN // Input the Roll Number to be searched
 
+OPENFILE "StuRec.txt" FOR READ // Open the file in read mode
+
+// Loop through records until the end of the file or until the record is found
 WHILE NOT EOF() AND Found=False
-
   READFILE "StuRec.txt", RollNo
   READFILE "StuRec.txt", Name
   READFILE "StuRec.txt", Class
@@ -39,23 +42,24 @@ WHILE NOT EOF() AND Found=False
   End If
 END WHILE
 
-CLOSEFILE "StuRec.txt"
+CLOSEFILE "StuRec.txt" // Close the file after searching
+
+// Output if the record is not found
 If Found = False Then
   Output "RECORD NOT FOUND."
 End IF
----------------------------------------------------------
 
-//Filing
-//DELETE PSEUDOCODE
-//9618 Syllabus Style
+// PSEUDOCODE FOR DELETING A RECORD FROM A TEXT FILE
+// This section demonstrates how to delete a specific record from "StuRec.txt".
+// The user provides a Roll Number, and the program removes the corresponding record.
 
-Input "Enter roll no to delete: ", RN
+Input "Enter roll no to delete: ", RN // Input Roll Number to delete
 
-OPENFILE "StuRec.txt" FOR READ
-OPENFILE "Temp.txt" FOR WRITE
+OPENFILE "StuRec.txt" FOR READ // Open the original file in read mode
+OPENFILE "Temp.txt" FOR WRITE // Open a temporary file in write mode
 
+// Read from original and write to temporary file, skipping the record to delete
 WHILE NOT EOF("StuRec.txt")
-
   READFILE "StuRec.txt", RollNo
   READFILE "StuRec.txt", Name
   READFILE "StuRec.txt", Class
@@ -67,27 +71,26 @@ WHILE NOT EOF("StuRec.txt")
     WRITEFILE "Temp.txt", Class
     WRITEFILE "Temp.txt", IsFeePaid
   End If
-
 END WHILE
 
-CLOSEFILE "StuRec.txt"
-CLOSEFILE "Temp.txt"
+CLOSEFILE "StuRec.txt" // Close the original file
+CLOSEFILE "Temp.txt" // Close the temporary file
 
-DELETEFILE "StuRec.txt"
-RENAMEFILE "Temp.txt" AS "StuRec.txt"
-------------------------------------------------------------
+DELETEFILE "StuRec.txt" // Delete the original file
+RENAMEFILE "Temp.txt" AS "StuRec.txt" // Rename the temporary file to the original file name
 
-//Filing
-//EDIT OR AMEND PSEUDOCODE
-//9618 Syllabus Style
 
-Input RN, NM, CL, IFP //Input from user
+// PSEUDOCODE FOR EDITING A RECORD IN A TEXT FILE
+// This section describes editing an existing record in "StuRec.txt".
+// The user inputs new details for a specific Roll Number, and the program updates the record.
 
-OPENFILE "StuRec.txt" FOR READ
-OPENFILE "Temp.txt" FOR WRITE
+Input RN, NM, CL, IFP // Input new details from user
 
+OPENFILE "StuRec.txt" FOR READ // Open the original file for reading
+OPENFILE "Temp.txt" FOR WRITE // Open a temporary file for writing
+
+// Read from original and write to temporary file, updating the specific record
 WHILE NOT EOF("StuRec.txt")
-
   READFILE "StuRec.txt", RollNo
   READFILE "StuRec.txt", Name
   READFILE "StuRec.txt", Class
@@ -104,33 +107,34 @@ WHILE NOT EOF("StuRec.txt")
     WRITEFILE "Temp.txt", Class
     WRITEFILE "Temp.txt", IsFeePaid
   End If
-
 END WHILE
 
-CLOSEFILE "StuRec.txt"
-CLOSEFILE "Temp.txt"
+CLOSEFILE "StuRec.txt" // Close the original file
+CLOSEFILE "Temp.txt" // Close the temporary file
 
-DELETEFILE "StuRec.txt"
-RENAMEFILE "Temp.txt" AS "StuRec.txt"
-------------------------------------------------------------
+DELETEFILE "StuRec.txt" // Delete the original file
+RENAMEFILE "Temp.txt" AS "StuRec.txt" // Rename the temporary file to the original file name
 
-//Filing
-//INSERT PSEUDOCODE
-//9618 Syllabus Style
 
-IsDone=False
-Input RN, NM, CL, IFP //Input from user
+// PSEUDOCODE FOR INSERTING A RECORD IN A SORTED TEXT FILE
+// This section demonstrates inserting a record into a sorted file "StuRec.txt".
+// The user inputs a new student record, which is inserted in the correct position
+// based on Roll Number.
 
-OPENFILE "StuRec.txt" FOR READ
-OPENFILE "Temp.txt" FOR WRITE
+IsDone=False // Flag to track if the insertion is done
+Input RN, NM, CL, IFP // Input new student details
+
+OPENFILE "StuRec.txt" FOR READ // Open the original file for reading
+OPENFILE "Temp.txt" FOR WRITE // Open a temporary file for writing
+
+// Read from original and write to temporary file, inserting the new record in sorted order
 WHILE NOT EOF()
-
   READFILE "StuRec.txt", RollNo
   READFILE "StuRec.txt", Name
   READFILE "StuRec.txt", Class
   READFILE "StuRec.txt", IsFeePaid
 
-  IF RN < RollNo Then
+  IF RN < RollNo AND IsDone=False Then
     IsDone=True
     WRITEFILE "Temp.txt", RN
     WRITEFILE "Temp.txt", NM
@@ -142,9 +146,9 @@ WHILE NOT EOF()
   WRITEFILE "Temp.txt", Name
   WRITEFILE "Temp.txt", Class
   WRITEFILE "Temp.txt", IsFeePaid
-
 END WHILE
 
+// Check if new record was not inserted in the loop, then write it at the end
 IF IsDone=False Then
   WRITEFILE "Temp.txt", RN
   WRITEFILE "Temp.txt", NM
@@ -152,8 +156,26 @@ IF IsDone=False Then
   WRITEFILE "Temp.txt", IFP
 End If
 
-CLOSEFILE "StuRec.txt"
-CLOSEFILE "Temp.txt"
+CLOSEFILE "StuRec.txt" // Close the original file
+CLOSEFILE "Temp.txt" // Close the temporary file
 
-DELETEFILE "StuRec.txt"
-RENAMEFILE "Temp.txt" AS "StuRec.txt"
+DELETEFILE "StuRec.txt" // Delete the original file
+RENAMEFILE "Temp.txt" AS "StuRec.txt" // Rename the temporary file to the original file name
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

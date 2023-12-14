@@ -1,31 +1,40 @@
-//PSEUDOCODE FOR SEARCHING
-//WITH A MSG OF "NOT FOUND"
+// PSEUDOCODE FOR SEARCHING A RECORD IN A FILE WITH A "NOT FOUND" MESSAGE
+// This pseudocode demonstrates how to search for a specific student record in a file named "sRec.txt"
+// based on a roll number input by the user. It displays the student's details if found. 
+// If the record is not found, it outputs a "Record not found..." message.
 
-DECLARE rollNo : INTEGER
-DECLARE sName : STRING
-DECLARE sConatct : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
+// Declare variables for storing student information and for the search functionality
+DECLARE rollNo : INTEGER       // To store the roll number of a student
+DECLARE sName : STRING         // To store the name of a student
+DECLARE sContact : STRING      // To store the contact information of a student
+DECLARE sFee : CURRENCY        // To store the fee amount
+DECLARE isFeePaid : BOOLEAN    // To store the fee payment status
+DECLARE isFound : BOOLEAN      // Flag to indicate if the record is found
+DECLARE searchRollNo : INTEGER // Roll number to search for
 
-DECLARE isFound : BOOLEAN  //FLAG
-DECLARE searchRollNo : INTEGER
+isFound = FALSE // Initialize the 'isFound' flag to FALSE
 
-isFound = FALSE
+// Input the roll number to search for
+INPUT "Enter roll# to search:", searchRollNo  
 
-INPUT "Enter roll# to serch :", searchRollNo  
+// Open the file 'sRec.txt' for reading
 OPENFILE "sRec.txt" FOR READ
 
+// Loop through the file until the record is found or the end of the file is reached
 WHILE NOT EOF("sRec.txt") AND isFound=FALSE
+  // Read each piece of data from the file
   READFILE "sRec.txt", rollNo
   READFILE "sRec.txt", sName
   READFILE "sRec.txt", sContact
   READFILE "sRec.txt", sFee
   READFILE "sRec.txt", isFeePaid
 
+  // Check if the current record matches the search criteria
   IF rollNo = searchRollNo 
     THEN
-      isFound = TRUE
+      isFound = TRUE // Set the flag to TRUE if the record is found
 
+      // Output the details of the found record
       OUTPUT "Roll number: ", rollNo
       OUTPUT "Student name: ", sName
       OUTPUT "Student contact: ", sContact
@@ -34,6 +43,26 @@ WHILE NOT EOF("sRec.txt") AND isFound=FALSE
   ENDIF
 ENDWHILE
 
+// Close the file after searching
 CLOSEFILE "sRec.txt"
 
-IF isFound = FALSE THEN OUTPUT "Recoord not found..."
+// Output a message if the record was not found
+IF isFound = FALSE THEN OUTPUT "Record not found..."
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

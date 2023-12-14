@@ -1,30 +1,53 @@
-//PSEUDOCODE FOR:
-//READING ALL RECORDS FROM FILE
-//USING EOF() FUNCTION AND 
-//REPEAT...UNTIL CODE
+// PSEUDOCODE FOR READING ALL RECORDS FROM A FILE
+// This pseudocode demonstrates how to read and display all student records from a file named "sRec.txt".
+// It uses a repeat-until loop in combination with the EOF() function to iterate through each record
+// in the file until the end of the file is reached.
 
+// Declare variables to store student information
+DECLARE rollNo : INTEGER       // To store the roll number of the student
+DECLARE sName : STRING         // To store the name of the student
+DECLARE sContact : STRING      // To store the contact information of the student
+DECLARE sFee : CURRENCY        // To store the fee amount
+DECLARE isFeePaid : BOOLEAN    // To store whether the fee has been paid or not
 
-DECLARE rollNo : INTEGER
-DECLARE sName : STRING
-DECLARE sConatct : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
-
+// Open the file 'sRec.txt' for reading
 OPENFILE "sRec.txt" FOR READ
 
+// Repeat reading and outputting each record until the end of the file is reached
 REPEAT
+  // Read each piece of data from the file
   READFILE "sRec.txt", rollNo
   READFILE "sRec.txt", sName
   READFILE "sRec.txt", sContact
   READFILE "sRec.txt", sFee
   READFILE "sRec.txt", isFeePaid
 
+  // Output the details of the current record
   OUTPUT "Roll number: ", rollNo
   OUTPUT "Student name: ", sName
   OUTPUT "Student contact: ", sContact
   OUTPUT "Fee amount: ", sFee
   OUTPUT "Is fee paid? ", isFeePaid
 
-UNTIL EOF("sRec.txt") = TRUE
+UNTIL EOF("sRec.txt") = TRUE // Continue until end of file is reached
 
+// Close the file after reading all records
 CLOSEFILE "sRec.txt"
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

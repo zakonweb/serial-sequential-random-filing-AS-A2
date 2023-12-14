@@ -1,18 +1,28 @@
-//EDITING
-DECLARE rollNo : INTEGER
-DECLARE sName : STRING
-DECLARE sConatct : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
-DECLARE isFound : BOOLEAN
-DECLARE searchRollNo : INTEGER
-isFound = FALSE
+// PSEUDOCODE FOR EDITING A RECORD IN A FILE
+// This pseudocode demonstrates how to edit a specific student record in a file based on the roll number.
+// It reads each record from 'sRec.txt', checks if it matches the roll number to be edited,
+// prompts for new details if it's a match, and writes the updated information to a temporary file 'temp.txt'.
+// The original file is then replaced with the updated temporary file.
 
+// Declare variables for handling student data and editing functionality
+DECLARE rollNo : INTEGER       // To store the roll number of a student
+DECLARE sName : STRING         // To store the student's name
+DECLARE sContact : STRING      // To store the student's contact information
+DECLARE sFee : CURRENCY        // To store the fee amount
+DECLARE isFeePaid : BOOLEAN    // To store the fee payment status
+DECLARE isFound : BOOLEAN      // Flag to indicate if the matching record is found
+DECLARE searchRollNo : INTEGER // Roll number of the record to be edited
+
+isFound = FALSE // Initialize the 'isFound' flag to FALSE
+
+// Input the roll number of the record to be edited
 INPUT "Enter roll# to edit:", searchRollNo  
 
-OPENFILE "sRec.txt" FOR INPUT
+// Open the original file for reading and a temporary file for writing
+OPENFILE "sRec.txt" FOR READ
 OPENFILE "temp.txt" FOR OUTPUT
 
+// Loop through the file, editing the matching record and copying the rest
 WHILE NOT EOF("sRec.txt") 
   READFILE "sRec.txt", rollNo
   READFILE "sRec.txt", sName
@@ -22,6 +32,7 @@ WHILE NOT EOF("sRec.txt")
 
   IF rollNo <> searchRollNo 
     THEN
+      // Write all non-matching records to the temporary file
       WRITEFILE "temp.txt", rollNo
       WRITEFILE "temp.txt", sName
       WRITEFILE "temp.txt", sContact
@@ -29,6 +40,7 @@ WHILE NOT EOF("sRec.txt")
       WRITEFILE "temp.txt", isFeePaid
   ELSEIF rollNo = searchRollNo
     THEN
+      // Update and write the matching record to the temporary file
       isFound = TRUE
       INPUT "Enter student name: ", sName
       INPUT "Enter student contact: ", sContact
@@ -42,9 +54,32 @@ WHILE NOT EOF("sRec.txt")
       WRITEFILE "temp.txt", isFeePaid
   ENDIF
 ENDWHILE
+
+// Close both the original and temporary files
 CLOSEFILE "sRec.txt"
 CLOSEFILE "temp.txt"
+
+// Replace the original file with the updated temporary file
 DELETEFILE "sRec.txt"
 RENAMEFILE "temp.txt", "sRec.txt"
 
+// Inform the user if the record was successfully edited
 IF isFound = TRUE THEN OUTPUT "Record edited..."
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

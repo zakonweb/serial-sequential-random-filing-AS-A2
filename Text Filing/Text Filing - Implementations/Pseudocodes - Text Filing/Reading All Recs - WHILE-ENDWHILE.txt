@@ -1,24 +1,28 @@
-//PSEUDOCODE FOR:
-//READING ALL RECORDS FROM FILE
-//USING EOF() FUNCTION & 
-//WHILE...ENDWHILE LOOP
+// PSEUDOCODE FOR READING ALL RECORDS FROM A FILE
+// This pseudocode demonstrates how to read and display all records from a file named "sRec.txt".
+// It uses a while loop in combination with the EOF() function to iterate through each record
+// until the end of the file is reached. This is a common approach in file handling operations.
 
-DECLARE rollNo : INTEGER
-DECLARE sName : STRING
-DECLARE sConatct : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
+// Declare variables to store the information of each student record
+DECLARE rollNo : INTEGER       // To store the roll number of a student
+DECLARE sName : STRING         // To store the name of a student
+DECLARE sContact : STRING      // To store the contact information of a student
+DECLARE sFee : CURRENCY        // To store the fee amount
+DECLARE isFeePaid : BOOLEAN    // To store whether the fee has been paid or not
 
+// Open the file 'sRec.txt' for reading
 OPENFILE "sRec.txt" FOR READ
 
+// Use a while loop to read through the file until the end of the file is reached
 WHILE NOT EOF("sRec.txt")
-
+  // Read each piece of data from the file
   READFILE "sRec.txt", rollNo
   READFILE "sRec.txt", sName
   READFILE "sRec.txt", sContact
   READFILE "sRec.txt", sFee
   READFILE "sRec.txt", isFeePaid
 
+  // Output the details of the current record
   OUTPUT "Roll number: ", rollNo
   OUTPUT "Student name: ", sName
   OUTPUT "Student contact: ", sContact
@@ -27,4 +31,23 @@ WHILE NOT EOF("sRec.txt")
 
 ENDWHILE
 
+// Close the file after all records have been read and displayed
 CLOSEFILE "sRec.txt"
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

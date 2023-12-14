@@ -1,13 +1,18 @@
-//INPUT/READ to SEARCH from a text file
+// PSEUDOCODE FOR READING FROM A TEXT FILE TO SEARCH FOR A SPECIFIC RECORD
+// This pseudocode demonstrates reading records from "ABC.txt" and searching for a specific record
+// based on a value provided by the user. It displays the details of the record if found.
+// If the record is not found, it outputs a message stating that the record could not be found.
 
-DECLARE GRNO : INTEGER
-DECLARE sNAME : STRING
-DECLARE sClass : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
-DECLARE Value : INTEGER
-DECLARE isFound : BOOLEAN
+// Declare variables to store student information and for the search functionality
+DECLARE GRNO : INTEGER        // To store the General Registration Number of the student
+DECLARE sNAME : STRING        // To store the student's name
+DECLARE sClass : STRING       // To store the student's class
+DECLARE sFee : CURRENCY       // To store the student's fee amount
+DECLARE isFeePaid : BOOLEAN   // To store the fee payment status
+DECLARE Value : INTEGER       // To store the search value
+DECLARE isFound : BOOLEAN     // Flag to indicate if the record is found
 
+// Initialize variables
 GRNO = 0
 sName = ""
 sClass = ""
@@ -16,20 +21,28 @@ isFeePaid = FALSE
 Value = 0
 isFound = FALSE
 
+// Ask the user for the value to search
 OUTPUT "Kia search kerna hey bhai?"
 INPUT Value 
 
+// Open the file 'ABC.txt' for reading
 OPENFILE "ABC.txt" FOR READ
+
+// Loop through the file until the record is found or the end of the file is reached
 WHILE NOT EOF("ABC.txt")
+    // Read each piece of data from the file
     READFILE "ABC.txt", GRNO
     READFILE "ABC.txt", sName
     READFILE "ABC.txt", sClass
     READFILE "ABC.txt", sFee
     READFILE "ABC.txt", isFeePaid
 
+    // Check if the current record matches the search criteria
     IF GRNO = Value
       THEN
-        isFound = TRUE
+        isFound = TRUE // Set the flag to TRUE if the record is found
+
+        // Output the details of the found record
         OUTPUT "GRNO: ", GRNO
         OUTPUT "Student name: ", sName
         OUTPUT "Class: ", sClass
@@ -39,9 +52,29 @@ WHILE NOT EOF("ABC.txt")
         EXIT LOOP
     END IF
 ENDWHILE
+
+// Close the file after searching
 CLOSEFILE "ABC.txt"
 
+// Output a message if the record was not found
 IF isFound = FALSE
   THEN
     OUTPUT Value, "Could not be found in the file bhai."
 ENDIF
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

@@ -1,18 +1,28 @@
-//DELETION
-DECLARE rollNo : INTEGER
-DECLARE sName : STRING
-DECLARE sConatct : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
-DECLARE isFound : BOOLEAN
-DECLARE searchRollNo : INTEGER
-isFound = FALSE
+// PSEUDOCODE FOR DELETING A RECORD FROM A FILE
+// This pseudocode demonstrates the process of deleting a specific record from a file based on roll number.
+// It involves reading each record from 'sRec.txt', comparing the roll number with the one to be deleted,
+// and writing all other records to a temporary file 'temp.txt'.
+// Finally, the original file is replaced with the temporary file.
 
+// Declare variables to store and manipulate student records
+DECLARE rollNo : INTEGER       // To store the roll number of a student
+DECLARE sName : STRING         // To store the name of a student
+DECLARE sContact : STRING      // To store the contact information of a student
+DECLARE sFee : CURRENCY        // To store the fee amount
+DECLARE isFeePaid : BOOLEAN    // To store the fee payment status
+DECLARE isFound : BOOLEAN      // Flag to indicate if the record is found
+DECLARE searchRollNo : INTEGER // Roll number to search for deletion
+
+isFound = FALSE // Initialize the 'isFound' flag to FALSE
+
+// Input the roll number to be deleted from the user
 INPUT "Enter roll# to delete :", searchRollNo  
 
-OPENFILE "sRec.txt" FOR INPUT
+// Open the original file for reading and a temporary file for writing
+OPENFILE "sRec.txt" FOR READ
 OPENFILE "temp.txt" FOR OUTPUT
 
+// Loop through the file to find and skip the record to be deleted
 WHILE NOT EOF("sRec.txt") 
   READFILE "sRec.txt", rollNo
   READFILE "sRec.txt", sName
@@ -22,6 +32,7 @@ WHILE NOT EOF("sRec.txt")
 
   IF rollNo <> searchRollNo 
     THEN
+      // Write all records except the one to be deleted to the temporary file
       WRITEFILE "temp.txt", rollNo
       WRITEFILE "temp.txt", sName
       WRITEFILE "temp.txt", sContact
@@ -29,14 +40,36 @@ WHILE NOT EOF("sRec.txt")
       WRITEFILE "temp.txt", isFeePaid
   ELSEIF rollNo = searchRollNo
     THEN
+      // Set the flag to TRUE if the record to be deleted is found
       isFound = TRUE
   ENDIF
 ENDWHILE
 
+// Close both the original and temporary files
 CLOSEFILE "sRec.txt"
 CLOSEFILE "temp.txt"
 
+// Delete the original file and rename the temporary file to the original file's name
 DELETEFILE "sRec.txt"
 RENAMEFILE "temp.txt", "sRec.txt"
 
+// Inform the user if the record was successfully deleted
 IF isFound = TRUE THEN OUTPUT "Record deleted..."
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

@@ -1,29 +1,60 @@
-//INPUT/READ from a text file
+// PSEUDOCODE FOR READING/INPUTTING FROM A TEXT FILE
+// This pseudocode demonstrates how to read records from a file named "ABC.txt" and display them.
+// It uses a while loop along with the EOF() function to read each record until the end of the file.
+// Each record consists of General Registration Number (GRNO), student name, class, fee amount, 
+// and fee payment status, which are displayed after reading.
 
-DECLARE GRNO : INTEGER
-DECLARE sNAME : STRING
-DECLARE sClass : STRING
-DECLARE sFee : CURRENCY
-DECLARE isFeePaid : BOOLEAN
+// Declare variables to store student information
+DECLARE GRNO : INTEGER        // To store the General Registration Number of the student
+DECLARE sNAME : STRING        // To store the student's name
+DECLARE sClass : STRING       // To store the student's class
+DECLARE sFee : CURRENCY       // To store the student's fee amount
+DECLARE isFeePaid : BOOLEAN   // To store the fee payment status
 
-GRNO = 0
-sName = ""
-sClass = ""
-sFee = ""
-isFeePaid = FALSE
+// Initialize the variables
+GRNO = 0                      // Initial GRNO set to 0
+sName = ""                    // Initial name set to an empty string
+sClass = ""                   // Initial class set to an empty string
+sFee = ""                     // Initial fee set to an empty string
+isFeePaid = FALSE             // Initial fee payment status set to false
 
+// Open the file 'ABC.txt' for reading
 OPENFILE "ABC.txt" FOR READ
+
+// Loop through the file until the end of the file is reached
 WHILE NOT EOF("ABC.txt")
+    // Read each piece of data from the file
     READFILE "ABC.txt", GRNO
     READFILE "ABC.txt", sName
     READFILE "ABC.txt", sClass
     READFILE "ABC.txt", sFee
     READFILE "ABC.txt", isFeePaid
 
+    // Output the details of each student record
     OUTPUT "GRNO: ", GRNO
     OUTPUT "Student name: ", sName
     OUTPUT "Class: ", sClass
     OUTPUT "Fee amount: ", sFee
     OUTPUT "Is fee paid: ", isFeePaid
 ENDWHILE
+
+// Close the file after all records have been read
 CLOSEFILE "ABC.txt"
+
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */
