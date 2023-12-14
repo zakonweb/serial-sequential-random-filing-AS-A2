@@ -1,34 +1,34 @@
-//RANDOM FILING
-//SERACHING A RECORD
-//FILE IS UNORDERED
+// This pseudocode demonstrates searching for a specific record in an unordered random file.
+// It iterates through each record in the file until the desired record is found or the end of the file is reached.
 
-//UDT
+// Define a user-defined type for student records
 TYPE sRecType
   DECLARE rollNo : INTEGER
-  DECLARE sName : STRING*25
-  DECLARE sConatct : STRING*16
-  DECLARE sFee : CURRENCY
-  DECLARE isFeePaid : BOOLEAN
+  DECLARE sName : STRING*25 // Fixed size string for student's name
+  DECLARE sContact : STRING*16 // Fixed size string for student's contact
+  DECLARE sFee : CURRENCY // Currency type for fee amount
+  DECLARE isFeePaid : BOOLEAN // Boolean to indicate if the fee is paid
 END TYPE
 
-//DECLARATION
+// Declaration of variables
 DECLARE myRec : sRecType
 DECLARE RN, totalRecs, i : INTEGER
-DECLARE isFound : BOOLEAN  //FLAG
+DECLARE isFound : BOOLEAN  // Flag to check if the record is found
 
-//INITIALISE
+// Initialize isFound to FALSE
 isFound ← FALSE
 
-//OPEN FILE 
+// Open the file in random access mode
 OPENFILE "sRec" FOR RANDOM
 
-//COUNT TOTAL RECs IN FILE
-totalRecs = LOF("sRec") / LEN(myRec)
+// Calculate the total number of records in the file
+totalRecs ← LOF("sRec") / LEN(myRec)
 
+// Input roll number to search
 INPUT "Enter Roll Number To Search For: ", RN
 
 FOR i ← 1 TO totalRecs 
-  //GOTO NEXT REC POSITION AND READ REC
+  // Go to the next record position and read the record
   SEEK "sRec", i
   GETRECORD "sRec", myRec
 
@@ -36,18 +36,37 @@ FOR i ← 1 TO totalRecs
     THEN
       isFound ← TRUE
 
-      //OUTPUT DATA
+      // Output the data of the record
       OUTPUT "Roll number: ", myRec.rollNo
       OUTPUT "Student name: ", myRec.sName
       OUTPUT "Student contact: ", myRec.sContact
       OUTPUT "Fee amount: ", myRec.sFee
       OUTPUT "Is fee paid? ", myRec.isFeePaid
+      EXIT FOR
   END IF
-
-   IF isFound = TRUE THEN Exit For
 NEXT i
 
-//CLOSE FILE
-CLOSEFILE "sRec"  
+// Close the file
+CLOSEFILE "sRec" 
 
-IF isFound = FALSE THEN OUTPUT "Record not found..."
+// Output message if record is not found
+IF isFound = FALSE 
+  THEN 
+    OUTPUT "Record not found..."
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

@@ -1,44 +1,62 @@
-//RANDOM FILING
-//ADD MULTIPLE RECORDS AT THE END OF FILE (APPEND)
+// This pseudocode demonstrates adding multiple records to the end of a random file using a while loop.
+// It continues to prompt the user for new records until the user chooses not to add more.
 
-//UDT
+// Define a user-defined type for student records
 TYPE sRecType
   DECLARE rollNo : INTEGER
-  DECLARE sName : STRING*25
-  DECLARE sConatct : STRING*16
-  DECLARE sFee : CURRENCY
-  DECLARE isFeePaid : BOOLEAN
+  DECLARE sName : STRING*25 // Fixed size string for student's name
+  DECLARE sContact : STRING*16 // Fixed size string for student's contact
+  DECLARE sFee : CURRENCY // Currency type for fee amount
+  DECLARE isFeePaid : BOOLEAN // Boolean to indicate if the fee is paid
 END TYPE
 
-//DECLARATION
-DECLARE myRec : sRecType
-DECLARE totalRecs : INTEGER
-DECLARE more : CHRACTER
+// Declaration of variables
+DECLARE myRec : sRecType // Variable to store a student record
+DECLARE totalRecs : INTEGER // Variable to store total number of records in the file
+DECLARE more : CHARACTER // Variable to check if more records are to be added
 
-//INITIALISE
+// Initialize more variable to 'Y'
 more ← 'Y'
 
-//OPEN FILE 
+// Open the file in random access mode
 OPENFILE "sRec" FOR RANDOM
 
-//COUNT TOTAL RECs IN FILE
-totalRecs = LOF("sRec") / LEN(myRec)
+// Calculate the total number of records in the file
+totalRecs ← LOF("sRec") / LEN(myRec)
 
-WHILE more = 'Y' or more = 'y'
-  //INPUT DATA
+WHILE more = 'Y' OR more = 'y'
+  // Input data for the new record
   INPUT "Roll number: ", myRec.rollNo
   INPUT "Student name: ", myRec.sName
   INPUT "Student contact: ", myRec.sContact
   INPUT "Fee amount: ", myRec.sFee
   INPUT "Is fee paid? ", myRec.isFeePaid
 
-  //GOTO NEXT REC POSITION AND SAVE REC
-  SEEK "sRec", totalRecs +1
-  PUTRECORD "sRec", myRec
-  totalRecs ← totalRecs +1
+  // Position the file pointer to the next record position and save the new record
+  SEEK "sRec", totalRecs + 1
+  PUTRECORD "sRec", myRec 
+  totalRecs ← totalRecs + 1
 
+  // Ask if the user wants to add another record
   INPUT "Want to add another record? (Y/N): ", more
 END WHILE
 
-//CLOSE FILE
-CLOSEFILE "sRec"  
+// Close the file
+CLOSEFILE "sRec"
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */

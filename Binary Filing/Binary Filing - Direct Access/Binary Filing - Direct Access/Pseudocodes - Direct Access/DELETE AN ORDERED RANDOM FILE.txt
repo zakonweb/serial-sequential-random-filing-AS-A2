@@ -1,54 +1,56 @@
-//RANDOM FILING
-//DELETE A RECORD
-//FILE IS ORDERED
+// This pseudocode demonstrates how to delete a specific record from an ordered random file.
+// It utilizes a temporary file to store records that are not deleted, effectively removing the specified record.
 
-//UDT
+// Define a user-defined type for student records
 TYPE sRecType
   DECLARE rollNo : INTEGER
-  DECLARE sName : STRING*25
-  DECLARE sConatct : STRING*16
-  DECLARE sFee : CURRENCY
-  DECLARE isFeePaid : BOOLEAN
+  DECLARE sName : STRING*25 // Fixed size string for student's name
+  DECLARE sContact : STRING*16 // Fixed size string for student's contact
+  DECLARE sFee : CURRENCY // Currency type for fee amount
+  DECLARE isFeePaid : BOOLEAN // Boolean to indicate if the fee is paid
 END TYPE
 
-//DECLARATION
+// Declaration of variables
 DECLARE myRec : sRecType
 DECLARE totalRecs, i, tempRecords : INTEGER
-DECLARE isFound : BOOLEAN   //FLAG
+DECLARE isFound : BOOLEAN // Flag to check if the record is found
+DECLARE RN : INTEGER // Roll number to be deleted
 
-//INITIALISE
+// Initialize isFound to FALSE
 isFound ← FALSE
 
-//OPEN FILE 
+// Open the file and temporary file in random access mode
 OPENFILE "sRec" FOR RANDOM
 OPENFILE "temp" FOR RANDOM
 
-//COUNT TOTAL RECs IN FILE sRec
-totalRecs = LOF("sRec") / LEN(myRec)
+// Calculate the total number of records in the file
+totalRecs ← LOF("sRec") / LEN(myRec)
 
+// Input roll number to delete
 INPUT "Enter Roll Number To DELETE: ", RN
 
+// Process deletion if roll number is within the range
 IF RN <= totalRecs
   THEN
-    isFound = TRUE
-
+    isFound ← TRUE
     FOR i ← 1 TO totalRecs 
       SEEK "sRec", i
       GETRECORD "sRec", myRec
 
-      IF myRec.rollNo <> RN
+      IF myRec.rollNo ≠ RN
         THEN
-          tempRecords = tempRecords +1
-          SEEK  "temp", tempRecords 
+          tempRecords ← tempRecords + 1
+          SEEK "temp", tempRecords 
           PUTRECORD "temp", myRec
       END IF
     NEXT i
 END IF
 
-//CLOSE FILE
+// Close both files
 CLOSEFILE "sRec" 
 CLOSEFILE "temp" 
 
+// Output message if record is not found, otherwise replace the original file with the temp file
 IF isFound = FALSE 
   THEN 
     OUTPUT "Record not found..."
@@ -56,3 +58,20 @@ IF isFound = FALSE
     DELETEFILE "sRec"
     RENAME "temp", "sRec"
 END IF
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */
