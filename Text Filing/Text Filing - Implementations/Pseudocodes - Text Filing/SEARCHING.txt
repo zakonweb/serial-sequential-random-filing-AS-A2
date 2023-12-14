@@ -5,11 +5,12 @@ DECLARE sName : STRING
 DECLARE sConatct : STRING
 DECLARE sFee : CURRENCY
 DECLARE isFeePaid : BOOLEAN
+
 DECLARE searchRollNo : INTEGER
 
 INPUT "Enter roll# to serch :", searchRollNo  
 
-OPENFILE "sRec.txt" FOR INPUT
+OPENFILE "sRec.txt" FOR READ
 
 WHILE NOT EOF("sRec.txt")
   READFILE "sRec.txt", rollNo

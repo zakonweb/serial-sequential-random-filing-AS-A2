@@ -7,15 +7,16 @@ DECLARE sFee : CURRENCY
 DECLARE isFeePaid : BOOLEAN
 DECLARE more : BOOLEAN
 
+// INITIALISATION
 GRNO = 0
 sName = ""
 sClass = ""
 sFee = ""
 isFeePaid = FALSE
-more = FALSE
+more = TRUE
 
 OPENFILE "ABC.txt" FOR APPEND
-REPEAT
+WHILE more = TRUE
     OUTPUT "Enter GRNO: "
     INPUT GRNO
 
@@ -37,9 +38,9 @@ REPEAT
     WRITEFILE "ABC.txt", sFee
     WRITEFILE "ABC.txt", isFeePaid
 
-    OUTPUT "Do you want to add more records? (Y/N)" 
+    OUTPUT "Do you want to add more records? (TRUE/FALSE): " 
     INPUT more
-UNTIL more = 'N' OR more = 'n' 
+END WHILE 
 CLOSEFILE "ABC.txt"
 
 

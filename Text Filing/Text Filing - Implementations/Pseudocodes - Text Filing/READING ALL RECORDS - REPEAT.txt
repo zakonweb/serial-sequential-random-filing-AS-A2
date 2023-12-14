@@ -10,10 +10,9 @@ DECLARE sConatct : STRING
 DECLARE sFee : CURRENCY
 DECLARE isFeePaid : BOOLEAN
 
-OPENFILE "sRec.txt" FOR INPUT
+OPENFILE "sRec.txt" FOR READ
 
 REPEAT
-
   READFILE "sRec.txt", rollNo
   READFILE "sRec.txt", sName
   READFILE "sRec.txt", sContact
@@ -26,7 +25,6 @@ REPEAT
   OUTPUT "Fee amount: ", sFee
   OUTPUT "Is fee paid? ", isFeePaid
 
-UNTIL EOF("sRec.txt")
-
+UNTIL EOF("sRec.txt") = TRUE
 
 CLOSEFILE "sRec.txt"

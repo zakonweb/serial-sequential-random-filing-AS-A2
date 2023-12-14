@@ -6,12 +6,14 @@ DECLARE sName : STRING
 DECLARE sConatct : STRING
 DECLARE sFee : CURRENCY
 DECLARE isFeePaid : BOOLEAN
-DECLARE isFound : BOOLEAN
+
+DECLARE isFound : BOOLEAN  //FLAG
 DECLARE searchRollNo : INTEGER
+
 isFound = FALSE
 
 INPUT "Enter roll# to serch :", searchRollNo  
-OPENFILE "sRec.txt" FOR INPUT
+OPENFILE "sRec.txt" FOR READ
 
 WHILE NOT EOF("sRec.txt") AND isFound=FALSE
   READFILE "sRec.txt", rollNo
@@ -34,4 +36,4 @@ ENDWHILE
 
 CLOSEFILE "sRec.txt"
 
-IF isFound = FALSE THEN OUTPUT "Not found..."
+IF isFound = FALSE THEN OUTPUT "Recoord not found..."
