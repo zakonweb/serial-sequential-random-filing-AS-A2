@@ -4,7 +4,7 @@
 import os
 
 def addFieldWiseSer():
-    sf = open("studentGAL.txt","wt")
+    sf = open("studentGAL.txt","at")
 
     stName = input("Enter name (Leave blank to end): ")
     while stName != "":

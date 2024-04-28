@@ -1,8 +1,9 @@
 """
-Task is to write code for binary direct access file using Struct library to read and write binary data
+Task is to write code for binary direct access file using Struct library 
+to read and write binary data
 The code will use following hashing function to generate hash value for the key
 the file will have 3 fields
-1. employee id; integer
+1. employee id; integer 
 2. employee name; string
 3. employee salary; float
 
@@ -13,11 +14,14 @@ where each record will have following number of bytes calculated using struct li
 3. employee salary; 4 bytes
 this way each record will have 28 bytes
 
-we will use following hashing function to generate hash value for the key to store and retrieve the record
-hash_value = key % 1000. this hashing function is called modulo hashing function and for clash resolution
+we will use following hashing function to generate hash value for the key to store and retrieve 
+the records
+hash_value = key % 1000. this hashing function is called modulo hashing function and 
+for clash resolution
 we will use linear probing or open addressing/hashing or bucketing.
 
-we will call the hasing function with key as employee id, like hash_value = hash_function(employee_id)
+we will call the hasing function with key as employee id, 
+like hash_value = hash_function(employee_id)
 
 following operations will be performed on the file
 1. create file
@@ -52,8 +56,8 @@ def create_file():
 
     # write 1000 records with default values that are 0
     for i in range(1000):
-        file.write(struct.pack(format, 0, b'', 0.0)) 
-        # b'' is used to create empty string
+        file.write(struct.pack(format, 0, ''.encode(), 0.0)) 
+        # b'', ''.encode() is used to create empty string
         # 0.0 is used to create float value
         # 0 is used to create integer value
 
@@ -79,7 +83,7 @@ def insert_record():
     try:
         # open file in binary read and write mode
         file = open('employee.dat', 'r+b')
-    except FileNotFoundError:
+    except:
         create_file()
         file = open('employee.dat', 'r+b')
 
@@ -125,8 +129,6 @@ def insert_record():
         # we will write the record in the file
         file.seek(hash_value * size)
         file.write(struct.pack(format, employee_id, employee_name.encode(), employee_salary))
-
-
     # close the file
     file.close()
 
@@ -150,7 +152,7 @@ def search_record():
     file = open('employee.dat', 'rb')
 
     # ask user for employee id
-    employee_id = int(input('Enter employee id: '))
+    employee_id = int(input('Enter employee id to search: '))
 
     # calculate hash value using hash_function
     hash_value = hash_function(employee_id)
@@ -182,8 +184,15 @@ def search_record():
             if count == 1000:
                 print('Record does not exists!!!')
                 break
-
-    # close the file
+            # if the end of the file is reached then we will start from the beginning of the file
+            if file.tell() == size * 1000:
+                file.seek(0)
+        if employee_id == id:
+            # read the record from the file
+            print('Employee id: ', id)
+            print('Employee name: ', name.decode().strip())
+            print('Employee salary: ', salary)        
+        # close the file
     file.close()
 
 def update_record():
@@ -248,6 +257,9 @@ def update_record():
                 flag = False
                 print('Record does not exists!!!')
                 break
+            # if the end of the file is reached then we will start from the beginning of the file
+            if file.tell() == size * 1000:
+                file.seek(0)
         if flag:
             # read the record from the file
             print('Employee id: ', id)
@@ -311,7 +323,7 @@ def delete_record():
         if confirmation == 'y':
             # update the record in the file
             file.seek(hash_value * size)
-            file.write(struct.pack(format, 0, ' '.encode(), 0))
+            file.write(struct.pack(format, 0, ' '.encode(), 0.0))
             print('Record deleted successfully!!!')
     else: # we will use while loop to find the record in the file
         # we move onwards from the hash_value location
@@ -329,6 +341,9 @@ def delete_record():
                 flag = False
                 print('Record does not exists!!!')
                 break
+            # if the end of the file is reached then we will start from the beginning of the file
+            if file.tell() == size * 1000:
+                file.seek(0)
         if flag:
             # read the record from the file
             print('Employee id: ', id)
@@ -372,6 +387,7 @@ def display_all_records():
         id, name, salary = struct.unpack(format, record)
         if id != 0:
             # print the records
+            print('Record number: ', i//size)
             print('Employee id: ', id)
             print('Employee name: ', name.decode().strip())
             print('Employee salary: ', salary)

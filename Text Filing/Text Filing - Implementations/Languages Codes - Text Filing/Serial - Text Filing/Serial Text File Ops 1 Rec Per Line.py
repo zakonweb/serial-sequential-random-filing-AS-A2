@@ -125,7 +125,7 @@ def display_records():
     """
     try:
         # Open the text file in read mode
-        with open('student.txt', 'r') as file:
+        with open('student.txt', 'rt') as file:
             # Read all the lines from the text file
             lines = file.readlines()
 
