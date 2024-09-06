@@ -20,7 +20,7 @@ INPUT "Enter roll# to edit:", searchRollNo
 
 // Open the original file for reading and a temporary file for writing
 OPENFILE "sRec.txt" FOR READ
-OPENFILE "temp.txt" FOR OUTPUT
+OPENFILE "temp.txt" FOR WRITE
 
 // Loop through the file, editing the matching record and copying the rest
 WHILE NOT EOF("sRec.txt") 

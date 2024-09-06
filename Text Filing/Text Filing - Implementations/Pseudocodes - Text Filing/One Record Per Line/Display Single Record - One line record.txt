@@ -1,0 +1,65 @@
+// PSEUDOCODE FOR DISPLAYING A SINGLE RECORD FROM A FILE
+// This pseudocode demonstrates how to read and display a single student record from a file.
+// It assumes that the file 'sRec.txt' contains student records and each record consists of 
+// roll number, name, contact, fee amount, and fee payment status.
+// The pseudocode reads the first record from the file and displays its contents.
+
+// Declare variables to store the student record
+DECLARE sRecord : STRING
+DECLARE rollNo : INTEGER       // To store the roll number of a student
+DECLARE sName : STRING         // To store the name of a student
+DECLARE sContact : STRING      // To store the contact information of a student
+DECLARE sFee : CURRENCY        // To store the fee amount
+DECLARE isFeePaid : BOOLEAN    // To store the fee payment status
+DECLARE hashPos1, hashPos2 : INTEGER
+
+// Open the file 'sRec.txt' in read mode
+OPENFILE "sRec.txt" FOR READ
+
+// Read the first record from the file line
+READFILE "sRec.txt", sRecord
+hashPos1 = LOCATE('#', sRecord)
+rollNo = LEFT(sRecord, hashPos1-1)
+
+hashPos2 = LOCATE(hashPos1+1, '#', sRecord)
+sName = MID(sRecord, hashPos1+1, hashPos2-hashPos1-1)
+
+hashPos1 = hashPos2
+hashPos2 = LOCATE(hashPos1+1, '#', sRecord)
+sContact = MID(sRecord, hashPos1+1, hashPos2-hashPos1-1)
+
+hashPos1 = hashPos2
+hashPos2 = LOCATE(hashPos1+1, '#', sRecord)
+sFee = MID(sRecord, hashPos1+1, hashPos2-hashPos1-1)
+
+hashPos1 = hashPos2
+hashPos2 = LOCATE(hashPos1+1, '#', sRecord)
+IsFeePaid = MID(sRecord, hashPos1+1, hashPos2-hashPos1-1)
+
+// Output the details of the student record
+OUTPUT "Roll number: ", rollNo
+OUTPUT "Student name: ", sName
+OUTPUT "Student contact: ", sContact
+OUTPUT "Fee amount: ", sFee
+OUTPUT "Is fee paid? ", isFeePaid
+
+// Close the file after reading
+CLOSEFILE "sRec.txt"
+
+/*
+ * ────────────────────────────────────────────────────────────────────────
+ *  Author: Zafar Ali Khan
+ *  Position: A and O Level Computer Science Teacher
+ *  
+ *  Description:
+ *  This code is part of my teaching material, created for the betterment of my students
+ *  and learners worldwide. It's intended to facilitate learning and understanding
+ *  of computer science concepts.
+ *  
+ *  Contact:
+ *  Email: zak@cswithzak.com
+ *  LinkedIn: [https://www.linkedin.com/in/zakonweb](https://www.linkedin.com/in/zakonweb)
+ *  GitHub: [https://github.com/zakonweb](https://github.com/zakonweb)
+ * ────────────────────────────────────────────────────────────────────────
+ */
+
